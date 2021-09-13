@@ -17,7 +17,7 @@ for i in range(len(fm)):
     elif fm[i] == '+' or fm[i] == '-':
         if stack != []:
             top = stack.pop()
-            while top == '*' or top == '/':
+            while top != '(' and stack != []:
                 result += top
                 top = stack.pop()
             stack.append(top)
@@ -25,7 +25,15 @@ for i in range(len(fm)):
         else :
             stack.append(fm[i])
     elif fm[i] == '*' or fm[i]=='/' :
-        stack.append(fm[i])
+        if stack != []:
+            top = stack.pop()
+            while (top == '*' or top == '/') and stack != []:
+                result += top
+                top = stack.pop()
+            stack.append(top)
+            stack.append(fm[i])
+        else :
+            stack.append(fm[i])
     else :
         result += fm[i]
 
